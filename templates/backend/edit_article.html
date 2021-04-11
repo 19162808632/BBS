@@ -1,0 +1,68 @@
+{% extends 'backend/backend.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'editor.md-master/css/editormd.css' %}"/>
+{% endblock %}
+
+{% block article %}
+    <h3>编辑文章</h3>
+    {#    直接利用form表单提交数据#}
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>标题</p>
+        <div>
+            <input type="text" name="title" class="form-control" value="{{ edit_obj.title }}">
+        </div>
+        <p>内容</p>
+        <div id="test-editormd">
+            <textarea name="content">{{ edit_obj.content }}</textarea>
+        </div>
+        <p>分类</p>
+        <div>
+            {% for category in category_list %}
+                <input type="radio" value="{{ category.pk }}" name="category">{{ category.name }}
+            {% endfor %}
+        </div>
+        <p>标签</p>
+        <div>
+            {% for tag in tag_list %}
+                <input type="checkbox" value="{{ tag.pk }}" name="tag">{{ tag.name }}
+            {% endfor %}
+        </div>
+        <input type="submit" class="btn btn-danger">
+    </form>
+{% endblock %}
+
+{% block js %}
+    {% load static %}
+    <script src="{% static 'editor.md-master/editormd.min.js' %}"></script>
+    <script type="text/javascript">
+        $(function () {
+            editormd("test-editormd", {
+                width: "100%",
+                height: 720,
+                markdown: "",
+                path: "{% static 'editor.md-master/lib/' %}",
+                //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为 true
+                //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为 true
+                //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为 true
+                //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为 0.1
+                //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为 #fff
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/upload_image/",
+
+                /*
+                 上传的后台只需要返回一个 JSON 数据，结构如下：
+                 {
+                    success : 0 | 1,           // 0 表示上传失败，1 表示上传成功
+                    message : "提示的信息，上传成功或上传失败及错误信息等。",
+                    url     : "图片地址"        // 上传成功时才返回
+                 }
+                 */
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,6 @@
+media
+migrations/0001_initial.py
+.idea
+.vscode
+__pycache__
+db.sqlite3
