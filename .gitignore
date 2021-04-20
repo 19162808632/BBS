@@ -3,3 +3,4 @@ media
 app01/migrations/0*.py
 .idea
 .vscode
+__pycache__

@@ -42,8 +42,7 @@
                     <span>#{{ forloop.counter }}楼</span>
                     <span>{{ comment.comment_time|date:'Y-m-d h:i:s' }}</span>
                     <span>{{ comment.user.username }}</span>
-                    <span><a class="pull-right reply" username="{{ comment.user.username }}"
-                             comment_id="{{ comment.pk }}">回复</a></span>
+                    <span><a class="pull-right reply" username="{{ comment.user.username }}" comment_id="{{ comment.pk }}">回复</a></span>
                     <div>
                         {#  判断当前评论是否是子评论 如果是需要渲染对应的评论人名#}
                         {% if comment.parent_id %}
