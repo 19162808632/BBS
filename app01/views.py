@@ -37,8 +37,7 @@ def register(request):
             if file_obj:
                 clean_data['avatar'] = file_obj
             # 站点名=用户名
-            clean_data['blog'] = models.Blog.objects.create(
-                site_name=clean_data.get('username'))
+            clean_data['blog'] = models.Blog.objects.create(site_name=clean_data.get('username'))
             # 直接操作数据库保存数据
             models.UserInfo.objects.create_user(**clean_data)
             back_dic['url'] = '/login/'
@@ -247,15 +246,14 @@ def comment(request):
     if request.is_ajax():
         back_dic = {'code': 1000, 'msg': ""}
         if request.method == 'POST':
-            if request.user.is_authenticated():
+            if request.user.is_authenticated:
                 article_id = request.POST.get('article_id')
                 content = request.POST.get("content")
                 parent_id = request.POST.get('parent_id')
                 # 直接操作评论表 存储数据      两张表
                 with transaction.atomic():
                     models.Article.objects.filter(pk=article_id).update(comment_num=F('comment_num') + 1)
-                    models.Comment.objects.create(user=request.user, article_id=article_id, content=content,
-                                                  parent_id=parent_id)
+                    models.Comment.objects.create(user=request.user, article_id=article_id, content=content,                                                  parent_id=parent_id)
                 back_dic['msg'] = '评论成功'
             else:
                 back_dic['code'] = 1001

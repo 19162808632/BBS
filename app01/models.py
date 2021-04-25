@@ -26,7 +26,7 @@ class UserInfo(AbstractUser):
 
 class Blog(models.Model):
     site_name = models.CharField(verbose_name='站点名称', max_length=32)
-    site_title = models.CharField(verbose_name='站点标题', max_length=32, null=True)
+    site_title = models.CharField(verbose_name='站点标题', max_length=32, default=site_name)
     # 简单模拟 带你认识样式内部原理的操作
     site_theme = models.CharField(verbose_name='站点样式', max_length=64, null=True)  # 存css/js的文件路径
 

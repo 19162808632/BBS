@@ -41,7 +41,7 @@
                 <li class="list-group-item">
                     <span>#{{ forloop.counter }}楼</span>
                     <span>{{ comment.comment_time|date:'Y-m-d h:i:s' }}</span>
-                    <span>{{ comment.user.username }}</span>
+                    <a href="/{{ comment.user.username }}/">{{ comment.user.username }}</a>
                     <span><a class="pull-right reply" username="{{ comment.user.username }}" comment_id="{{ comment.pk }}">回复</a></span>
                     <div>
                         {#  判断当前评论是否是子评论 如果是需要渲染对应的评论人名#}
@@ -68,8 +68,7 @@
             <span style="color: red" id="errors"></span>
         </div>
     {% else %}
-        <li><a href="{% url 'reg' %}">注册</a></li>
-        <li><a href="{% url 'login' %}">登陆</a></li>
+        <p>你还没有登陆，请先 <a href="{% url 'reg' %}">注册</a> 或 <a href="{% url 'login' %}"> 登陆 </a>再进行评论</p>
     {% endif %}
     {#   文章评论样式结束 #}
 {% endblock %}
@@ -139,7 +138,7 @@
                         <li class="list-group-item">
 
                             <span>${userName}</span>
-                            <span><a href="#" class="pull-right">回复</a></span>
+                            <span><a href="/comment/" class="pull-right">回复</a></span>
                             <div>
                                 ${conTent}
                             </div>
