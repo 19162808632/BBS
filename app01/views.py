@@ -395,3 +395,8 @@ def set_avatar(request):
     blog = request.user.blog
     username = request.user.username
     return render(request, 'set_avatar.html', locals())
+
+
+def joke(request):
+    article_list = models.Joke.objects.all()
+    return render(request, 'joke.html', locals())

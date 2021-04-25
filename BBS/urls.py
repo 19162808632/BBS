@@ -56,4 +56,6 @@ urlpatterns = [
     # 文章详情页
     url(r'^(?P<username>\w+)/article/(?P<article_id>\d+)/', views.article_detail, name='article_detail'),
 
+    url(r'^happy/', views.joke, name='joke'),
+
 ]

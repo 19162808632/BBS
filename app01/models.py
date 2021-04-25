@@ -116,3 +116,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class Joke(models.Model):
+    article = models.TextField()
+
+    def __str__(self):
+        return '笑话'
