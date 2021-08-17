@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 import json
 import os
 import random
@@ -20,7 +21,9 @@ from app01.utils.mytags import Pagination
 
 
 def register(request):
-    
+    """
+    注册
+    """
     form_obj = MyRegForm()
     if request.method == 'POST':
         back_dic = {"code": 1000, 'msg': ''}
@@ -38,7 +41,8 @@ def register(request):
             if file_obj:
                 clean_data['avatar'] = file_obj
             # 站点名=用户名
-            clean_data['blog'] = models.Blog.objects.create(site_name=clean_data.get('username'))
+            clean_data['blog'] = models.Blog.objects.create(
+                site_name=clean_data.get('username'))
             # 直接操作数据库保存数据
             models.UserInfo.objects.create_user(**clean_data)
             back_dic['url'] = '/login/'
@@ -169,14 +173,14 @@ def site(request, username, **kwargs):
             article_list = article_list.filter(tags__id=param)
         else:
             year, month = param.split('-')  # 2020-11  [2020,11]
-            article_list = article_list.filter(create_time__year=year, create_time__month=month)
+            article_list = article_list.filter(
+                create_time__year=year, create_time__month=month)
     return render(request, 'site.html', locals())
 
 
 def article_detail(request, username, article_id):
     """
-    应该需要校验username和article_id是否存在,但是我们这里先只完成正确的情况
-    默认不会瞎搞
+    应该需要校验username和article_id是否存在,但是我们这里先只完成正确的情况;默认不会瞎搞
     :param request:
     :param username:
     :param article_id:
@@ -185,7 +189,8 @@ def article_detail(request, username, article_id):
     user_obj = models.UserInfo.objects.filter(username=username).first()
     blog = user_obj.blog
     # 先获取文章对象
-    article_obj = models.Article.objects.filter(pk=article_id, blog__userinfo__username=username).first()
+    article_obj = models.Article.objects.filter(
+        pk=article_id, blog__userinfo__username=username).first()
     if not article_obj:
         return render(request, 'errors.html')
     # 获取当前 文章所有的评论内容
@@ -215,20 +220,24 @@ def up_or_down(request):
             article_obj = models.Article.objects.filter(pk=article_id).first()
             if not article_obj.blog.userinfo == request.user:
                 # 3 校验当前用户是否已经点了      哪个地方记录了用户到底点没点
-                is_click = models.UpAndDown.objects.filter(user=request.user, article=article_obj)
+                is_click = models.UpAndDown.objects.filter(
+                    user=request.user, article=article_obj)
                 if not is_click:
                     # 4 操作数据库 记录数据      要同步操作普通字段
                     # 判断当前用户点了赞还是踩 从而决定给哪个字段加一
                     if is_up:
                         # 给点赞数加一
-                        models.Article.objects.filter(pk=article_id).update(up_num=F('up_num') + 1)
+                        models.Article.objects.filter(
+                            pk=article_id).update(up_num=F('up_num') + 1)
                         back_dic['msg'] = '点赞成功'
                     else:
                         # 给点踩数加一
-                        models.Article.objects.filter(pk=article_id).update(down_num=F('down_num') + 1)
+                        models.Article.objects.filter(pk=article_id).update(
+                            down_num=F('down_num') + 1)
                         back_dic['msg'] = '点踩成功'
                     # 操作点赞点踩表
-                    models.UpAndDown.objects.create(user=request.user, article=article_obj, is_up=is_up)
+                    models.UpAndDown.objects.create(
+                        user=request.user, article=article_obj, is_up=is_up)
                 else:
                     back_dic['code'] = 1001
                     # 这里你可以做的更加的详细 提示用户到底点了赞还是点了踩
@@ -253,8 +262,10 @@ def comment(request):
                 parent_id = request.POST.get('parent_id')
                 # 直接操作评论表 存储数据      两张表
                 with transaction.atomic():
-                    models.Article.objects.filter(pk=article_id).update(comment_num=F('comment_num') + 1)
-                    models.Comment.objects.create(user=request.user, article_id=article_id, content=content,                                                  parent_id=parent_id)
+                    models.Article.objects.filter(pk=article_id).update(
+                        comment_num=F('comment_num') + 1)
+                    models.Comment.objects.create(user=request.user, article_id=article_id,
+                                                  content=content,                                                  parent_id=parent_id)
                 back_dic['msg'] = '评论成功'
             else:
                 back_dic['code'] = 1001
@@ -267,12 +278,10 @@ def backend(request):
     # 获取当前用户对象所有的文章展示到页面
     article_list = models.Article.objects.filter(blog=request.user.blog)
 
-    page_obj = Pagination(current_page=request.GET.get('page', 1), all_count=article_list.count())
+    page_obj = Pagination(current_page=request.GET.get(
+        'page', 1), all_count=article_list.count())
     page_queryset = article_list[page_obj.start:page_obj.end]
     return render(request, 'backend/backend.html', locals())
-
-
-from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
@@ -367,7 +376,8 @@ def upload_image(request):
     # 用户写文章上传的图片 也算静态资源 也应该防盗media文件夹下
     if request.method == "POST":
         # print(request)
-        file_obj = request.FILES.get('imgFile') or request.FILES.get('editormd-image-file')
+        file_obj = request.FILES.get(
+            'imgFile') or request.FILES.get('editormd-image-file')
         filename = str(uuid.uuid4()) + file_obj.name
 
         file_path = os.path.join(settings.BASE_DIR, 'media', 'article_img')

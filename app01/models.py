@@ -8,13 +8,15 @@ class UserInfo(AbstractUser):
     blank=True  admin后台管理该字段可以为空
     """
     # 头像
-    avatar = models.FileField(verbose_name='用户头像', upload_to='avatar/', default='static/img/default.png')
+    avatar = models.FileField(
+        verbose_name='用户头像', upload_to='avatar/', default='static/img/default.png')
     """
     给avatar字段传文件对象 该文件会自动存储到avatar文件下 然后avatar字段只保存文件路径avatar/default.png
     """
     create_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     phone = models.BigIntegerField(verbose_name='手机号', null=True, blank=True)
-    blog = models.OneToOneField(verbose_name='博客', to='Blog', null=True, on_delete=models.CASCADE)
+    blog = models.OneToOneField(
+        verbose_name='博客', to='Blog', null=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = '用户表'  # 修改admin后台管理默认的表名
@@ -26,9 +28,11 @@ class UserInfo(AbstractUser):
 
 class Blog(models.Model):
     site_name = models.CharField(verbose_name='站点名称', max_length=32)
-    site_title = models.CharField(verbose_name='站点标题', max_length=32, default=site_name)
+    site_title = models.CharField(
+        verbose_name='站点标题', max_length=32, default=site_name)
     # 简单模拟 带你认识样式内部原理的操作
-    site_theme = models.CharField(verbose_name='站点样式', max_length=64, null=True)  # 存css/js的文件路径
+    site_theme = models.CharField(
+        verbose_name='站点样式', max_length=64, null=True)  # 存css/js的文件路径
 
     def __str__(self):
         return self.site_name
@@ -39,7 +43,8 @@ class Blog(models.Model):
 
 class Category(models.Model):
     name = models.CharField(verbose_name='文章分类', max_length=32)
-    blog = models.ForeignKey(verbose_name='博客', to='Blog', null=True, on_delete=models.CASCADE)
+    blog = models.ForeignKey(verbose_name='博客', to='Blog',
+                             null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -50,7 +55,8 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(verbose_name='文章标签', max_length=32)
-    blog = models.ForeignKey(verbose_name='博客', to='Blog', null=True, on_delete=models.CASCADE)
+    blog = models.ForeignKey(verbose_name='博客', to='Blog',
+                             null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -72,9 +78,12 @@ class Article(models.Model):
     comment_num = models.BigIntegerField(verbose_name='评论数', default=0)
 
     # 外键字段
-    blog = models.ForeignKey(verbose_name='博客', to='Blog', null=True, on_delete=models.CASCADE)
-    category = models.ForeignKey(verbose_name='分类', to='Category', null=True, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(verbose_name='标签', to='Tag', through='Article2Tag', through_fields=('article', 'tag'))
+    blog = models.ForeignKey(verbose_name='博客', to='Blog',
+                             null=True, on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        verbose_name='分类', to='Category', null=True, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(
+        verbose_name='标签', to='Tag', through='Article2Tag', through_fields=('article', 'tag'))
 
     def __str__(self):
         return self.title
@@ -84,8 +93,10 @@ class Article(models.Model):
 
 
 class Article2Tag(models.Model):
-    article = models.ForeignKey(verbose_name='文章', to='Article', on_delete=models.CASCADE)
-    tag = models.ForeignKey(verbose_name='标签', to='Tag', on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        verbose_name='文章', to='Article', on_delete=models.CASCADE)
+    tag = models.ForeignKey(verbose_name='标签', to='Tag',
+                            on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = '文章2标签'
@@ -95,8 +106,10 @@ class Article2Tag(models.Model):
 
 
 class UpAndDown(models.Model):
-    user = models.ForeignKey(verbose_name='用户', to='UserInfo', on_delete=models.CASCADE)
-    article = models.ForeignKey(verbose_name='文章', to='Article', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        verbose_name='用户', to='UserInfo', on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        verbose_name='文章', to='Article', on_delete=models.CASCADE)
     is_up = models.BooleanField()  # 传布尔值 存0/1
 
     class Meta:
@@ -104,12 +117,15 @@ class UpAndDown(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(verbose_name='用户', to='UserInfo', on_delete=models.CASCADE)
-    article = models.ForeignKey(verbose_name='文章', to='Article', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        verbose_name='用户', to='UserInfo', on_delete=models.CASCADE)
+    article = models.ForeignKey(
+        verbose_name='文章', to='Article', on_delete=models.CASCADE)
     content = models.CharField(verbose_name='评论内容', max_length=255)
     comment_time = models.DateTimeField(verbose_name='评论时间', auto_now_add=True)
     # 自关联
-    parent = models.ForeignKey(verbose_name='根评论', to='self', null=True, on_delete=models.CASCADE)  # 有些评论就是根评论
+    parent = models.ForeignKey(
+        verbose_name='根评论', to='self', null=True, on_delete=models.CASCADE)  # 有些评论就是根评论
 
     class Meta:
         verbose_name_plural = '评论'
