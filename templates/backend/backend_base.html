@@ -14,61 +14,54 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button"
-                    class="navbar-toggle collapsed"
-                    data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1"
-                    aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/backend/">账号：{{ request.user.username }}</a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">博客 <span class="sr-only">(current)</span></a></li>
-                <li><a href="/">文章</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">更多 <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <label>
-                        <input type="text" class="form-control" placeholder="Search">
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                {% if request.user.is_authenticated %}
+                <a class="navbar-brand" href="/backend/">账号：{{ request.user.username }}</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">博客 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/">文章</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">更多 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <label>
+                            <input type="text" class="form-control" placeholder="Search">
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit
+                    </button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if request.user.is_authenticated %}
                     <li><a href="#">{{ request.user.username }}</a></li>
                     <li class="dropdown">
-                        <a href="#"
-                           class="dropdown-toggle"
-                           data-toggle="dropdown"
-                           role="button"
-                           aria-haspopup="true"
-                           aria-expanded="false">更多操作 <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">更多操作 <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">修改密码</a></li>
                             <li><a href="/set/avatar/">修改头像</a></li>
@@ -77,34 +70,39 @@
                             <li><a href="{% url 'logout' %}">退出登陆</a></li>
                         </ul>
 
-                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                            <div class="modal-dialog modal-lg"
-                                 role="document">
+                        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel">
+                            <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <h1 class="text-center">修改密码</h1>
                                     <div class="row">
                                         <div class="col-md-8 col-md-offset-2">
                                             <div class="form-group">
                                                 <label for="">用户名
-                                                    <input type="text" disabled value="{{ request.user.username }}" class="form-control"></label>
+                                                    <input type="text" disabled value="{{ request.user.username }}"
+                                                        class="form-control"></label>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">原密码
-                                                    <input type="password" id="id_old_password" class="form-control">
+                                                    <input type="password" id="id_old_password" class="form-control"
+                                                        required="true">
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">新密码
-                                                    <input type="password" id="id_new_password" class="form-control">
+                                                    <input type="password" id="id_new_password" class="form-control"
+                                                        required="true">
                                                 </label>
                                             </div>
                                             <div class="form-group">
                                                 <label for="">确认密码
-                                                    <input type="password" id="id_confirm_password" class="form-control">
+                                                    <input type="password" id="id_confirm_password" class="form-control"
+                                                        required="true">
                                                 </label>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">取消</button>
                                                 <button class="btn btn-primary" id="id_edit">修改</button>
                                                 <span style="color: red" id="password_error"></span>
                                             </div>
@@ -116,106 +114,109 @@
                             </div>
                         </div>
                     </li>
-                {% else %}
+                    {% else %}
                     <li><a href="{% url 'reg' %}">注册</a></li>
                     <li><a href="{% url 'login' %}">登陆</a></li>
-                {% endif %}
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-1">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        更多操作
-                    </h4>
-                </div>
+                    {% endif %}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            更多操作
+                        </h4>
+                    </div>
 
-                <div class="panel-body">
-                    <a href="/add/article/">添加文章</a>
-                </div>
+                    <div class="panel-body">
+                        <a href="/add/article/">添加文章</a>
+                    </div>
 
-                <div class="panel-body">
-                    <a href="#">添加随笔</a>
-                </div>
-                <div class="panel-body">
-                    <a href="#">草稿箱</a>
-                </div>
-                <div class="panel-body">
-                    <a href="#">更多设置</a>
+                    <div class="panel-body">
+                        <a href="#">添加随笔</a>
+                    </div>
+                    <div class="panel-body">
+                        <a href="#">草稿箱</a>
+                    </div>
+                    <div class="panel-body">
+                        <a href="#">更多设置</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-11">
-            <div>
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs"
-                    role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">文章</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">随笔</a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">文件</a></li>
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">设置</a></li>
-                </ul>
+            <div class="col-md-11">
+                <div>
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                data-toggle="tab">文章</a></li>
+                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab"
+                                data-toggle="tab">随笔</a></li>
+                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab"
+                                data-toggle="tab">文件</a></li>
+                        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab"
+                                data-toggle="tab">设置</a></li>
+                    </ul>
 
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="home">
-                        {% block article %}
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="home">
+                            {% block article %}
                             文章界面
-                        {% endblock %}
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="profile">
-                        {% block suibi %}
+                            {% endblock %}
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                            {% block suibi %}
                             随笔界面
-                        {% endblock %}
+                            {% endblock %}
 
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="messages">
-                        {% block file %}
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="messages">
+                            {% block file %}
                             文件界面
-                        {% endblock %}
+                            {% endblock %}
 
-                    </div>
-                    <div role="tabpanel" class="tab-pane" id="settings">
-                        {% block set %}
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="settings">
+                            {% block set %}
                             设置界面
-                        {% endblock %}
+                            {% endblock %}
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<script>
-    $('#id_edit').click(function () {
-        $.ajax({
-            url: '/set_password/',
-            type: 'post',
-            data: {
-                'old_password': $('#id_old_password').val(),
-                'new_password': $('#id_new_password').val(),
-                'confirm_password': $('#id_confirm_password').val(),
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (args) {
-                if (args.code === 1000) {
-                    $()
-                    window.location.reload()
-                } else {
-                    $("#password_error").text(args.msg)
+    <script>
+        $('#id_edit').click(function () {
+            $.ajax({
+                url: '/set_password/',
+                type: 'post',
+                data: {
+                    'old_password': $('#id_old_password').val(),
+                    'new_password': $('#id_new_password').val(),
+                    'confirm_password': $('#id_confirm_password').val(),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (args) {
+                    if (args.code === 1000) {
+                        console.log(args.msg)
+                        window.location.href = args.url
+                    } else {
+                        $("#password_error").text(args.msg)
+                    }
                 }
-            }
+            })
         })
-    })
-</script>
-{% block js %}
-{% endblock %}
+    </script>
+    {% block js %}
+    {% endblock %}
 </body>
 
 </html>

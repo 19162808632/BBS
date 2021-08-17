@@ -1,88 +1,91 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">panel 1</h3>
-                    </div>
-                    <div class="panel-body">
-                        不晓得写什么1
-                    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">panel 1</h3>
                 </div>
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">panel 2</h3>
-                    </div>
-                    <div class="panel-body">
-                        不晓得写什么2
-                    </div>
-                </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">panel3</h3>
-                    </div>
-                    <div class="panel-body">
-                        不晓得写什么3
-                    </div>
+                <div class="panel-body">
+                    不晓得写什么1
                 </div>
             </div>
-            <div class="col-md-8">
-                <ul class="media-list">
-                    {% for article_obj in article_queryset %}
-                        <li class="media">
-                            <h4 class="media-heading">
-                                <a href="/{{ article_obj.blog.userinfo.username }}/article/{{ article_obj.pk }}/">{{ article_obj.title }}</a>
-                            </h4>
-                            <div class="media-left">
-                                <a href="#">
-                                    <img class="media-object" src="/media/{{ article_obj.blog.userinfo.avatar }}" alt="..." width="80">
-                                </a>
-                            </div>
-                            <div class="media-body">                                {{ article_obj.desc }}
-                            </div>
-                            {#                Newbe36524 发布于 2020-06-11 09:04 评论(0)阅读(23)#}
-                            <br>
-                            <div>
-                        <span><a
-                                href="/{{ article_obj.blog.userinfo.username }}/">{{ article_obj.blog.userinfo.username }}&nbsp;&nbsp;</a></span>
-                                <span>发布于&nbsp;&nbsp;</span>
-                                <span>{{ article_obj.create_time|date:'Y-m-d' }}&nbsp;&nbsp;</span>
-                                <span><span class="glyphicon glyphicon-comment"></span>评论({{ article_obj.comment_num }})&nbsp;&nbsp;</span>
-                                <span><span class="glyphicon glyphicon-thumbs-up"></span>点赞({{ article_obj.up_num }})</span>
-                            </div>
-                        </li>
-                        <hr>
-                    {% endfor %}
-                </ul>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">panel 2</h3>
+                </div>
+                <div class="panel-body">
+                    不晓得写什么2
+                </div>
             </div>
-            <div class="col-md-2">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">panel 1</h3>
-                    </div>
-                    <div class="panel-body">
-                        不晓得写什么1
-                    </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">panel3</h3>
                 </div>
-                <div class="panel panel-danger">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">panel 2</h3>
-                    </div>
-                    <div class="panel-body">
-                        不晓得写什么2
-                    </div>
+                <div class="panel-body">
+                    不晓得写什么3
                 </div>
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">panel3</h3>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <ul class="media-list">
+                {% for article_obj in article_queryset %}
+                <li class="media">
+                    <h4 class="media-heading">
+                        <a href="/{{ article_obj.blog.userinfo.username }}/article/{{ article_obj.pk }}/">{{
+                            article_obj.title }}</a>
+                    </h4>
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object" src="/media/{{ article_obj.blog.userinfo.avatar }}" alt="..."
+                                width="80">
+                        </a>
                     </div>
-                    <div class="panel-body">
-                        不晓得写什么3
+                    <div class="media-body"> {{ article_obj.desc }}
                     </div>
+                    {# Newbe36524 发布于 2020-06-11 09:04 评论(0)阅读(23)#}
+                    <br>
+                    <div>
+                        <span><a href="/{{ article_obj.blog.userinfo.username }}/">{{ article_obj.blog.userinfo.username
+                                }}&nbsp;&nbsp;</a></span>
+                        <span>发布于&nbsp;&nbsp;</span>
+                        <span>{{ article_obj.create_time|date:'Y-m-d' }}&nbsp;&nbsp;</span>
+                        <span><span class="glyphicon glyphicon-comment"></span>评论({{ article_obj.comment_num
+                            }})&nbsp;&nbsp;</span>
+                        <span><span class="glyphicon glyphicon-thumbs-up"></span>点赞({{ article_obj.up_num }})</span>
+                    </div>
+                </li>
+                <hr>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">panel 1</h3>
+                </div>
+                <div class="panel-body">
+                    不晓得写什么1
+                </div>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">panel 2</h3>
+                </div>
+                <div class="panel-body">
+                    不晓得写什么2
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">panel3</h3>
+                </div>
+                <div class="panel-body">
+                    不晓得写什么3
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

@@ -58,8 +58,9 @@ def login(request):
         back_dic = {'code': 1000, 'msg': ''}
         username = request.POST.get('username')
         password = request.POST.get('password')
-        code = request.POST.get('code')
-        # 1 先校验验证码是否正确      自己决定是否忽略            统一转大写或者小写再比较
+        code = request.POST.get('code').strip()
+
+        # 1 先校验验证码是否正确, 统一转大写或者小写再比较
         if request.session.get('code').upper() == code.upper():
             # 2 校验用户名和密码是否正确
             user_obj = auth.authenticate(
@@ -88,9 +89,9 @@ def get_code(request):
     img_draw = ImageDraw.Draw(img_obj)  # 产生一个画笔对象
     img_font = ImageFont.truetype('static/font/222.ttf', 30)  # 字体样式 大小
 
-    # 随机验证码  五位数的随机验证码  数字 小写字母 大写字母
+    # 随机验证码  六位数的随机验证码  数字 小写字母 大写字母
     code = ''
-    for i in range(5):
+    for i in range(6):
         random_upper = chr(random.randint(65, 90))
         random_lower = chr(random.randint(97, 122))
         random_int = str(random.randint(0, 9))
@@ -103,7 +104,7 @@ def get_code(request):
         img_draw.text((i * 60 + 60, -2), tmp, get_random(), img_font)
         # 拼接随机字符串
         code += tmp
-    print(code)
+    print("验证码：", code)
     # 随机验证码在登陆的视图函数里面需要用到 要比对 所以要找地方存起来并且其他视图函数也能拿到
     request.session['code'] = code
     io_obj = BytesIO()
@@ -119,6 +120,9 @@ def home(request):
 
 @login_required
 def set_password(request):
+    '''
+    修改密码
+    '''
     if request.is_ajax():
         back_dic = {'code': 1000, 'msg': ''}
         if request.method == 'POST':
@@ -130,7 +134,8 @@ def set_password(request):
                 if new_password == confirm_password:
                     request.user.set_password(new_password)
                     request.user.save()
-                    back_dic['msg'] = '修改成功'
+                    back_dic['msg'] = '修改成功，请重新登陆'
+                    back_dic['url'] = '/login/'
                 else:
                     back_dic['code'] = 1001
                     back_dic['msg'] = '两次密码不一致'
