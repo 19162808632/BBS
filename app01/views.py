@@ -20,6 +20,7 @@ from app01.utils.mytags import Pagination
 
 
 def register(request):
+    
     form_obj = MyRegForm()
     if request.method == 'POST':
         back_dic = {"code": 1000, 'msg': ''}
