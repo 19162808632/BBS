@@ -8,13 +8,11 @@
         <img src="/media/{{ request.user.avatar }}" alt="">
     </p>
     <p>
-
         <label for="myfile">新头像:
             {% load static %}
             <img src="{% static 'img/default.png' %}" id='myimg' alt="" width="100" style="margin-left: 10px">
         </label>
         <input type="file" id="myfile" name="avatar" style="display: none">
-
     </p>
     <input type="submit" class="btn btn-info">
 </form>

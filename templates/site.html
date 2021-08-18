@@ -17,13 +17,13 @@
         </div>
         <!-- posted @ 2015-10-20 01:02 武沛齐 阅读(68527) 评论(24) 推荐(58) 编辑)  -->
         <div class="pull-right">
-            <span>posted&nbsp;&nbsp;</span>
-            <span>@&nbsp;&nbsp;</span>
+            <span>posted@</span>
             <span>{{ article_obj.create_time|date:'Y-m-d' }}&nbsp;&nbsp;</span>
-            <span>{{ article_obj.blog.userinfo.username }}&nbsp;&nbsp;</span>
+            <span>作者：{{ article_obj.blog.userinfo.username }}&nbsp;&nbsp;</span>
             <span><span class="glyphicon glyphicon-comment"></span>评论({{ article_obj.comment_num }})&nbsp;&nbsp;</span>
             <span><span class="glyphicon glyphicon-thumbs-up"></span>点赞({{ article_obj.up_num }})</span>
             <span><a href="/edit/article/{{ article_obj.pk }}">编辑</a></span>
+            <span><a href="/{{ username }}/article/{{ article_obj.pk }}/">浏览</a></span>
         </div>
     </li>
     <hr>

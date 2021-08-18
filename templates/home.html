@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
-{% block body %}
+
+{% block Body %}
 <div class="container-fluid">
     <div class="row">
+        {% block left %}
         <div class="col-md-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -28,12 +30,13 @@
                 </div>
             </div>
         </div>
+        {% endblock %}
+
+        {% block mid %}
         <div class="col-md-8">
             <ul class="media-list">
                 {% for article_obj in article_queryset %}
-
                 <li class="media">
-
                     <h4 class="media-heading">
                         <a href="/{{ article_obj.blog.userinfo.username }}/article/{{ article_obj.pk }}/">
                             {{ article_obj.title }}</a>
@@ -67,6 +70,8 @@
                 {% endfor %}
             </ul>
         </div>
+        {% endblock %}
+        {% block right %}
         <div class="col-md-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -93,31 +98,7 @@
                 </div>
             </div>
         </div>
+        {% endblock %}
     </div>
 </div>
-<script>
-    $('.up_or_down').click(function () {
-        // 取得当前点击的对象
-        var father = this
-        $.ajax({
-            url: '/up_or_down/',
-            type: 'post',
-            data: {
-                'article_id': $(father).attr('article_id'),
-                'is_up': true,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function (args) {
-                if (args.code === 1000) {
-                    // 将前端的数字加一,先获取到之前的数字
-                    oldNum = $(father).children().text()
-                    $(father).children().text(Number(oldNum) + 1)
-                }
-                $(father).next().text(args.msg).fadeIn(5000).fadeOut(4500) 
-            }
-        })
-        // 
-       
-    })
-</script>
 {% endblock %}

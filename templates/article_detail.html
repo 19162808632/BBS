@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/upORdown.css' %}">
+<link rel="stylesheet" href="{% static 'css/upORdown.css' %}" />
 {% endblock %}
 
 {% block content %}
@@ -28,7 +28,7 @@
             <span class="burynum " id="bury_count">{{ article_obj.down_num }}</span>
         </div>
         <div class="clear"></div>
-        <div class="diggword" id="digg_tips" style="color: red"> </div>
+        <div class="diggword" id="digg_tips" style="color: red"></div>
     </div>
 </div>
 <!--   点赞点踩样式结束 -->
@@ -42,8 +42,7 @@
             <span>#{{ forloop.counter }}楼</span>
             <span>{{ comment.comment_time|date:'Y-m-d h:i:s' }}</span>
             <a href="/{{ comment.user.username }}/">{{ comment.user.username }}</a>
-            <span><a class="pull-right reply" username="{{ comment.user.username }}"
-                    comment_id="{{ comment.pk }}">回复</a></span>
+            <a class="pull-right reply" username="{{ comment.user.username }}" comment_id="{{ comment.pk }}">回复</a>
             <div>
                 <!-- 判断当前评论是否是子评论 如果是需要渲染对应的评论人名  -->
                 {% if comment.parent_id %}
@@ -54,7 +53,6 @@
         </li>
         {% endfor %}
     </ul>
-
 
 </div>
 <!--   评论楼渲染结束  -->
@@ -76,7 +74,7 @@
 
 {% block js %}
 <script>
-    //   给所有的action类绑定事件
+    // 给所有的action类绑定事件
     $('.action').click(function () {
         // alert($(this).hasClass('diggit'))
         let isUp = $(this).hasClass('diggit');
@@ -141,7 +139,7 @@
                             <div>
                                 ${conTent}
                             </div>
-                            </li>
+                        </li>
                         `
                     // 将生成好的标签添加到ul标签内
                     $('.list-group').append(temp);
@@ -150,7 +148,7 @@
                 }
             }
         })
-    })
+    });
 
     // 给回复按钮绑定点击事件
     $('.reply').click(function () {
@@ -170,9 +168,7 @@
             tex: true,  // 默认不解析
             flowChart: true,  // 默认不解析
             sequenceDiagram: true,  // 默认不解析
-        });
+        })
     });
-
-
 </script>
 {% endblock %}
