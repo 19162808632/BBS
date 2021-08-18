@@ -1,9 +1,11 @@
 db.sqlite3
-media
 migrations
 .idea
 .vscode
 __pycache__
-
 !__init__.py
-!C:\Users\Administrator\Desktop\bbs\media\avatar\default.png
+# 删除media文件，除了media/avatar/default.png
+media/*
+!media/avatar
+media/avatar/*
+!media/avatar/default.png

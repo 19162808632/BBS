@@ -31,7 +31,7 @@
                             <img src="{% static 'img/default.png' %}" id='myimg' alt="" width="100"
                                 style="margin-left: 10px">
                         </label>
-                        <input type="file"  id="myfile" name="avatar" style="display: none">
+                        <input type="file" id="myfile" name="avatar" style="display: none">
                     </div>
 
                     <input type="button" class="btn btn-primary pull-right" value="注册" id="id_commit">
@@ -46,7 +46,7 @@
             // 1 先生成一个文件阅读器对象
             let myFileReaderObj = new FileReader();
             // 2 获取用户上传的头像文件
-            let fileObj = $(this)[0].files[0];
+            let fileObj = $(this)[0].files[0] || "avatar/default.png";
             // 3 将文件对象交给阅读器对象读取
             myFileReaderObj.readAsDataURL(fileObj)  // 异步操作  IO操作
             // 4 利用文件阅读器将文件展示到前端页面  修改src属性

@@ -28,11 +28,11 @@
             <span class="burynum " id="bury_count">{{ article_obj.down_num }}</span>
         </div>
         <div class="clear"></div>
-        <div class="diggword" id="digg_tips" style="color: red">
-        </div>
+        <div class="diggword" id="digg_tips" style="color: red"> </div>
     </div>
 </div>
 <!--   点赞点踩样式结束 -->
+
 <!--   评论楼渲染开始  -->
 <!--  3楼 2020-05-14 14:11 代码一字狂 -->
 <div>
@@ -45,7 +45,7 @@
             <span><a class="pull-right reply" username="{{ comment.user.username }}"
                     comment_id="{{ comment.pk }}">回复</a></span>
             <div>
-               <!-- 判断当前评论是否是子评论 如果是需要渲染对应的评论人名  -->
+                <!-- 判断当前评论是否是子评论 如果是需要渲染对应的评论人名  -->
                 {% if comment.parent_id %}
                 <p>@{{ comment.parent.user.username }}</p>
                 {% endif %}
@@ -71,7 +71,7 @@
 {% else %}
 <p>你还没有登陆，请先 <a href="{% url 'reg' %}">注册</a> 或 <a href="{% url 'login' %}"> 登陆 </a>再进行评论</p>
 {% endif %}
-<!-- 文章评论样式结束 -->
+<!-- 文章评论渲染结束 -->
 {% endblock %}
 
 {% block js %}
@@ -92,15 +92,15 @@
             },
             success: function (args) {
                 if (args.code === 1000) {
-                    $('#digg_tips').text(args.msg)
+
                     // 将前端的数字加一
                     // 先获取到之前的数字
                     let oldNum = $div.children().text();  // 文本 是字符类型
                     // 易错点
                     $div.children().text(Number(oldNum) + 1)  // 字符串拼接了 1+1 = 11  11 + 1 = 111
-                } else {
-                    $('#digg_tips').html(args.msg)
                 }
+                $('#digg_tips').html(args.msg)
+
             }
         })
     })
@@ -137,9 +137,7 @@
                     let userName = '{{ request.user.username }}';
                     let temp = `
                         <li class="list-group-item">
-
                             <span>${userName}</span>
-                            <span><a href="/comment/" class="pull-right">回复</a></span>
                             <div>
                                 ${conTent}
                             </div>

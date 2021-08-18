@@ -36,11 +36,11 @@ def register(request):
             # 将字典里面的confirm_password键值对删除
             clean_data.pop('confirm_password')
             # 用户头像
-            file_obj = request.FILES.get('avatar')
+            file_obj = request.FILES.get('avatar') or "avatar/default.png"
             """针对用户头像一定要判断是否传值 不能直接添加到字典里面去"""
             if file_obj:
                 clean_data['avatar'] = file_obj
-            
+
             # 站点名=用户名
             clean_data['blog'] = models.Blog.objects.create(
                 site_name=clean_data.get('username'))
@@ -224,11 +224,11 @@ def up_or_down(request):
             # print(is_up, type(is_up))  # True <class 'bool'>
             # 2 判断当前文章是否是当前用户自己写的  根据文章id查询文章对象 根据文章对象查作者 根request.user比对
             article_obj = models.Article.objects.filter(pk=article_id).first()
-            if not article_obj.blog.userinfo == request.user:
+            if  not article_obj.blog.userinfo == request.user:
                 # 3 校验当前用户是否已经点了      哪个地方记录了用户到底点没点
                 is_click = models.UpAndDown.objects.filter(
                     user=request.user, article=article_obj)
-                if not is_click:
+                if  not is_click:
                     # 4 操作数据库 记录数据      要同步操作普通字段
                     # 判断当前用户点了赞还是踩 从而决定给哪个字段加一
                     if is_up:
@@ -254,6 +254,7 @@ def up_or_down(request):
         else:
             back_dic['code'] = 1003
             back_dic['msg'] = '请先<a href="/login/">登陆</a>'
+        print(back_dic)
         return JsonResponse(back_dic)
 
 
@@ -262,7 +263,7 @@ def comment(request):
     if request.is_ajax():
         back_dic = {'code': 1000, 'msg': ""}
         if request.method == 'POST':
-            if request.user.is_authenticated:
+            if  request.user.is_authenticated:
                 article_id = request.POST.get('article_id')
                 content = request.POST.get("content")
                 parent_id = request.POST.get('parent_id')
@@ -404,7 +405,7 @@ def upload_image(request):
 @login_required
 def set_avatar(request):
     if request.method == 'POST':
-        file_obj = request.FILES.get('avatar')
+        file_obj = request.FILES.get("avatar") or "avatar/default.png"
         user_obj = request.user
         user_obj.avatar = file_obj
         user_obj.save()
