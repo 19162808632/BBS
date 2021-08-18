@@ -1,6 +1,9 @@
 db.sqlite3
 media
-app01/migrations/0*.py
+migrations
 .idea
 .vscode
 __pycache__
+
+!__init__.py
+!C:\Users\Administrator\Desktop\bbs\media\avatar\default.png

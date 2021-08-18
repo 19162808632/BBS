@@ -31,7 +31,7 @@
                             <img src="{% static 'img/default.png' %}" id='myimg' alt="" width="100"
                                 style="margin-left: 10px">
                         </label>
-                        <input type="file" id="myfile" name="avatar" style="display: none">
+                        <input type="file"  id="myfile" name="avatar" style="display: none">
                     </div>
 
                     <input type="button" class="btn btn-primary pull-right" value="注册" id="id_commit">
@@ -60,9 +60,9 @@
             // 发送ajax请求     我们发送的数据中即包含普通的键值也包含文件
             let formDataObj = new FormData();
             // 1.添加普通的键值对
-            // {#console.log($('#myform').serializeArray())  // [{},{},{},{},{}]  只包含普通键值对#}
+            // console.log($('#myform').serializeArray())  // [{},{},{},{},{}]  只包含普通键值对 
             $.each($('#myform').serializeArray(), function (index, obj) {
-                // {#console.log(index,obj)#}  // obj = {}
+                //  console.log(index,obj) 
                 formDataObj.append(obj.name, obj.value)
             });
             // 2.添加文件数据
@@ -86,7 +86,7 @@
                         // 如何将对应的错误提示展示到对应的input框下面
                         // forms组件渲染的标签的id值都是 id_字段名
                         $.each(args.msg, function (index, obj) {
-                            // {#console.log(index, obj)  //  username        ["用户名不能为空"]#}
+                            //  console.log(index, obj)  //  username        ["用户名不能为空"] 
                             let targetId = '#id_' + index;
                             $(targetId).next().text(obj[0]).parent().addClass('has-error')
                         })

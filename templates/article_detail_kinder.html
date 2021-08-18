@@ -73,7 +73,7 @@
             <span><a class="pull-right reply" username="{{ comment.user.username }}"
                     comment_id="{{ comment.pk }}">回复</a></span>
             <div>
-                {# 判断当前评论是否是子评论 如果是需要渲染对应的评论人名#}
+                <!-- 判断当前评论是否是子评论 如果是需要渲染对应的评论人名  -->
                 {% if comment.parent_id %}
                 <p>@{{ comment.parent.user.username }}</p>
                 {% endif %}
@@ -85,8 +85,8 @@
 
 
 </div>
-{# 评论楼渲染结束#}
-{# 文章评论样式开始 #}
+<!--   评论楼渲染结束  -->
+<!--   文章评论样式开始   -->
 {% if request.user.is_authenticated %}
 <div>
     <p><span class="glyphicon glyphicon-comment"></span>发表评论</p>
@@ -100,14 +100,14 @@
 <li><a href="{% url 'reg' %}">注册</a></li>
 <li><a href="{% url 'login' %}">登陆</a></li>
 {% endif %}
-{# 文章评论样式结束 #}
+<!-- 文章评论样式结束  -->
 {% endblock %}
 
 {% block js %}
 <script>
     //   给所有的action类绑定事件
     $('.action').click(function () {
-        {#alert($(this).hasClass('diggit'))# }
+        //  alert($(this).hasClass('diggit')) 
         let isUp = $(this).hasClass('diggit');
         let $div = $(this);
         // 朝后端发送ajax请求

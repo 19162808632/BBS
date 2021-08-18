@@ -40,6 +40,7 @@ def register(request):
             """针对用户头像一定要判断是否传值 不能直接添加到字典里面去"""
             if file_obj:
                 clean_data['avatar'] = file_obj
+            
             # 站点名=用户名
             clean_data['blog'] = models.Blog.objects.create(
                 site_name=clean_data.get('username'))

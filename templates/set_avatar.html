@@ -28,7 +28,6 @@
         let myFileReaderObj = new FileReader();
         // 2 获取用户上传的头像文件
         let fileObj = $(this)[0].files[0];
-        console.log(fileObj)
         // 3 将文件对象交给阅读器对象读取
         myFileReaderObj.readAsDataURL(fileObj)  // 异步操作  IO操作
         // 4 利用文件阅读器将文件展示到前端页面  修改src属性

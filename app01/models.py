@@ -9,7 +9,7 @@ class UserInfo(AbstractUser):
     """
     # 头像
     avatar = models.FileField(
-        verbose_name='用户头像', upload_to='avatar/', default='static/img/default.png')
+        verbose_name='用户头像', upload_to='avatar/', default='avatar/default.png')
     """
     给avatar字段传文件对象 该文件会自动存储到avatar文件下 然后avatar字段只保存文件路径avatar/default.png
     """

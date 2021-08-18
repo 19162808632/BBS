@@ -206,7 +206,7 @@
                 },
                 success: function (args) {
                     if (args.code === 1000) {
-                        console.log(args.msg)
+                        alert(args.msg)
                         window.location.href = args.url
                     } else {
                         $("#password_error").text(args.msg)

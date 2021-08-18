@@ -31,10 +31,12 @@
         <div class="col-md-8">
             <ul class="media-list">
                 {% for article_obj in article_queryset %}
+
                 <li class="media">
+
                     <h4 class="media-heading">
-                        <a href="/{{ article_obj.blog.userinfo.username }}/article/{{ article_obj.pk }}/">{{
-                            article_obj.title }}</a>
+                        <a href="/{{ article_obj.blog.userinfo.username }}/article/{{ article_obj.pk }}/">
+                            {{ article_obj.title }}</a>
                     </h4>
                     <div class="media-left">
                         <a href="#">
@@ -44,15 +46,17 @@
                     </div>
                     <div class="media-body"> {{ article_obj.desc }}
                     </div>
-                    {# Newbe36524 发布于 2020-06-11 09:04 评论(0)阅读(23)#}
+                    <!--  Newbe36524 发布于 2020-06-11 09:04 评论(0)阅读(23) -->
                     <br>
                     <div>
-                        <span><a href="/{{ article_obj.blog.userinfo.username }}/">{{ article_obj.blog.userinfo.username
-                                }}&nbsp;&nbsp;</a></span>
+                        <span>
+                            <a href="/{{ article_obj.blog.userinfo.username }}/">
+                                {{ article_obj.blog.userinfo.username }}&nbsp;&nbsp;</a>
+                        </span>
                         <span>发布于&nbsp;&nbsp;</span>
                         <span>{{ article_obj.create_time|date:'Y-m-d' }}&nbsp;&nbsp;</span>
-                        <span><span class="glyphicon glyphicon-comment"></span>评论({{ article_obj.comment_num
-                            }})&nbsp;&nbsp;</span>
+                        <span class="glyphicon glyphicon-comment"></span>评论(
+                        <span> {{ article_obj.comment_num }})&nbsp;&nbsp;</span>
                         <span><span class="glyphicon glyphicon-thumbs-up"></span>点赞({{ article_obj.up_num }})</span>
                     </div>
                 </li>

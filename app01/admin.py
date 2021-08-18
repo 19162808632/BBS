@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from app01 import models
+from . import models
 
 # Register your models here.
 
